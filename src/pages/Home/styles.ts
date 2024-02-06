@@ -6,6 +6,7 @@ export const Container = styled.main`
   align-items: center;
   justify-content: center;
   flex: 1;
+  user-select: none;
 
   form {
     display: flex;

@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { differenceInSeconds } from 'date-fns'
 import { Play } from 'phosphor-react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
@@ -25,6 +26,7 @@ interface Cycle {
   id: string
   task: string
   time: number
+  startDate: Date
 }
 
 export const Home: React.FC = () => {
@@ -32,6 +34,7 @@ export const Home: React.FC = () => {
   const [currentCycleId, setCurrentCycleId] = React.useState<string | null>(
     null,
   )
+  const [secondsPassed, setSecondsPassed] = React.useState(0)
 
   const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
     resolver: zodResolver(newCycleFormValidationSchema),
@@ -46,15 +49,45 @@ export const Home: React.FC = () => {
       id: String(new Date().getTime()),
       task: data.task,
       time: data.time,
+      startDate: new Date(),
     }
     setCycles((state) => [...state, newCycle])
     setCurrentCycleId(newCycle.id)
+    setSecondsPassed(0)
+
     reset()
   }
 
   const activeCycle = cycles.find((cycle) => cycle.id === currentCycleId)
 
-  console.log(activeCycle)
+  React.useEffect(() => {
+    let interval: number
+
+    if (activeCycle) {
+      interval = setInterval(() => {
+        setSecondsPassed(differenceInSeconds(new Date(), activeCycle.startDate))
+      }, 1000)
+    }
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [activeCycle])
+
+  const totalSeconds = activeCycle ? activeCycle.time * 60 : 0
+  const currentSeconds = activeCycle ? totalSeconds - secondsPassed : 0
+
+  const minutesAmount = Math.floor(currentSeconds / 60)
+  const secondsAmount = currentSeconds % 60
+
+  const minutes = String(minutesAmount).padStart(2, '0')
+  const seconds = String(secondsAmount).padStart(2, '0')
+
+  React.useEffect(() => {
+    if (activeCycle) {
+      document.title = `${minutes}:${seconds} | Pomodoro`
+    }
+  }, [activeCycle, minutes, seconds])
 
   const task = watch('task')
   const isDisabled = !task
@@ -95,11 +128,11 @@ export const Home: React.FC = () => {
         </FormContainer>
 
         <Countdown>
-          <span>0</span>
-          <span>0</span>
+          <span>{minutes[0]}</span>
+          <span>{minutes[1]}</span>
           <Separator>:</Separator>
-          <span>0</span>
-          <span>0</span>
+          <span>{seconds[0]}</span>
+          <span>{seconds[1]}</span>
         </Countdown>
 
         <StartCountdownButton type="submit" disabled={isDisabled}>
