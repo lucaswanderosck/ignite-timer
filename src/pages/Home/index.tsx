@@ -21,7 +21,18 @@ const newCycleFormValidationSchema = zod.object({
 
 type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>
 
+interface Cycle {
+  id: string
+  task: string
+  time: number
+}
+
 export const Home: React.FC = () => {
+  const [cycles, setCycles] = React.useState<Cycle[]>([])
+  const [currentCycleId, setCurrentCycleId] = React.useState<string | null>(
+    null,
+  )
+
   const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
     resolver: zodResolver(newCycleFormValidationSchema),
     defaultValues: {
@@ -31,13 +42,19 @@ export const Home: React.FC = () => {
   })
 
   const handleCreateNewCycle = (data: NewCycleFormData) => {
-    if (data.time === 0) {
-      return
+    const newCycle: Cycle = {
+      id: String(new Date().getTime()),
+      task: data.task,
+      time: data.time,
     }
-
-    console.log(data)
+    setCycles((state) => [...state, newCycle])
+    setCurrentCycleId(newCycle.id)
     reset()
   }
+
+  const activeCycle = cycles.find((cycle) => cycle.id === currentCycleId)
+
+  console.log(activeCycle)
 
   const task = watch('task')
   const isDisabled = !task
