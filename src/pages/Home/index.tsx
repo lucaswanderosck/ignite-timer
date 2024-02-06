@@ -1,5 +1,9 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Play } from 'phosphor-react'
 import React from 'react'
+import { useForm } from 'react-hook-form'
+import 'react-toastify/dist/ReactToastify.css'
+import * as zod from 'zod'
 import {
   Container,
   Countdown,
@@ -10,10 +14,37 @@ import {
   TaskInput,
 } from './styles'
 
+const newCycleFormValidationSchema = zod.object({
+  task: zod.string().min(1, 'O nome do projeto é obrigatório'),
+  time: zod.number().int().min(5).max(60),
+})
+
+type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>
+
 export const Home: React.FC = () => {
+  const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
+    resolver: zodResolver(newCycleFormValidationSchema),
+    defaultValues: {
+      task: '',
+      time: 0,
+    },
+  })
+
+  const handleCreateNewCycle = (data: NewCycleFormData) => {
+    if (data.time === 0) {
+      return
+    }
+
+    console.log(data)
+    reset()
+  }
+
+  const task = watch('task')
+  const isDisabled = !task
+
   return (
     <Container>
-      <form action="">
+      <form action="" onSubmit={handleSubmit(handleCreateNewCycle)}>
         <FormContainer>
           <label htmlFor="task">Vou trabalhar em</label>
           <TaskInput
@@ -21,6 +52,7 @@ export const Home: React.FC = () => {
             id="task"
             placeholder="Dê um nome para o seu projeto"
             list="task-sugestions"
+            {...register('task')}
           />
 
           <datalist id="task-sugestions">
@@ -39,6 +71,7 @@ export const Home: React.FC = () => {
             min={5}
             max={60}
             step={5}
+            {...register('time', { valueAsNumber: true })}
           />
 
           <span>Minutos.</span>
@@ -52,7 +85,7 @@ export const Home: React.FC = () => {
           <span>0</span>
         </Countdown>
 
-        <StartCountdownButton type="submit">
+        <StartCountdownButton type="submit" disabled={isDisabled}>
           <Play size={24} />
           Começar
         </StartCountdownButton>

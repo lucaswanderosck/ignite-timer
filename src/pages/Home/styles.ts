@@ -58,8 +58,10 @@ export const MinutsInput = styled(BaseInput)`
   width: 4rem;
   text-align: center;
 
-  &::-webkit-inner-spin-button {
-    display: none !important;
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 `
 
