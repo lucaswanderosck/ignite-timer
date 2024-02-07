@@ -15,82 +15,12 @@ export const Container = styled.main`
     gap: 3.5rem;
   }
 `
-export const FormContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  color: ${({ theme }) => theme.colors['gray-100']};
-  font-size: 1.125rem;
-  font-weight: bold;
-  flex-wrap: wrap;
-`
 
-const BaseInput = styled.input`
-  height: 2.5rem;
-  padding: 0 0.5rem;
-  border: 0;
-  outline: 0;
-  border-bottom: 2px solid ${({ theme }) => theme.colors['gray-500']};
-  background-color: ${({ theme }) => theme.colors['gray-700']};
-  color: ${({ theme }) => theme.colors['gray-100']};
-  font-size: 1.125rem;
-  font-weight: bold;
-  transition: background-color 0.2s;
+interface ButtonColorProps {
+  color: 'red' | 'green'
+}
 
-  &::placeholder {
-    color: ${({ theme }) => theme.colors['gray-500']};
-  }
-
-  &:focus {
-    box-shadow: none;
-    border-color: ${({ theme }) => theme.colors['green-500']};
-  }
-`
-export const TaskInput = styled(BaseInput)`
-  flex: 1;
-
-  &::-webkit-calendar-picker-indicator {
-    display: none !important;
-  }
-`
-export const MinutsInput = styled(BaseInput)`
-  width: 4rem;
-  text-align: center;
-
-  &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-`
-
-export const Countdown = styled.div`
-  font-family: 'Roboto Mono', monospace;
-  font-size: 10rem;
-  line-height: 8rem;
-  font-weight: bold;
-  color: ${({ theme }) => theme.colors['gray-100']};
-  display: flex;
-  gap: 1rem;
-
-  span {
-    background-color: ${({ theme }) => theme.colors['gray-700']};
-    padding: 2rem 1rem;
-    border-radius: 8px;
-  }
-`
-
-export const Separator = styled.div`
-  padding: 2rem 0;
-  color: ${({ theme }) => theme.colors['green-500']};
-  width: 4rem;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-`
-export const StartCountdownButton = styled.button`
+export const StartCountdownButton = styled.button<ButtonColorProps>`
   width: 100%;
   padding: 1rem;
   border: 0;
@@ -100,8 +30,10 @@ export const StartCountdownButton = styled.button`
   justify-content: center;
   gap: 0.5rem;
   font-weight: bold;
-  background-color: ${({ theme }) => theme.colors['green-500']};
   color: ${({ theme }) => theme.colors['gray-100']};
+  background-color: ${({ theme, color }) =>
+    theme.colors[color === 'red' ? 'red-500' : 'green-500']};
+
   cursor: pointer;
   transition: background-color 0.2s;
 
@@ -111,6 +43,7 @@ export const StartCountdownButton = styled.button`
   }
 
   &:not(:disabled):hover {
-    background-color: ${({ theme }) => theme.colors['green-700']};
+    background-color: ${({ theme, color }) =>
+      theme.colors[color === 'red' ? 'red-700' : 'green-700']};
   }
 `
