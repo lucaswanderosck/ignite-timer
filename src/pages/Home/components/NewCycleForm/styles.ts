@@ -18,7 +18,8 @@ const BaseInput = styled.input`
   border: 0;
   outline: 0;
   border-bottom: 2px solid ${({ theme }) => theme.colors['gray-500']};
-  background-color: ${({ theme }) => theme.colors['gray-700']};
+  //background-color: ${({ theme }) => theme.colors['gray-700']};
+  background: transparent;
   color: ${({ theme }) => theme.colors['gray-100']};
   font-size: 1.125rem;
   font-weight: bold;

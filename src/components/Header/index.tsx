@@ -10,10 +10,10 @@ export const Header: React.FC = () => {
       <img src={logo} alt="" />
       <nav>
         <NavLink to="/" title="Timer">
-          <Timer weight="duotone" size={24} />
+          <Timer size={24} />
         </NavLink>
         <NavLink to="/history" title="Histórico">
-          <Scroll weight="duotone" size={24} />
+          <Scroll size={24} />
         </NavLink>
       </nav>
     </Container>

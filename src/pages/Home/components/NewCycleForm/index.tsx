@@ -23,8 +23,6 @@ export const NewCycleForm: React.FC = () => {
         <option value="Projeto 1" />
         <option value="Projeto 2" />
         <option value="Projeto 3" />
-        <option value="Projeto 4" />
-        <option value="Projeto 5" />
       </datalist>
 
       <label htmlFor="time">Durante</label>
@@ -32,7 +30,7 @@ export const NewCycleForm: React.FC = () => {
         type="number"
         id="time"
         placeholder="00"
-        min={1}
+        min={5}
         max={60}
         step={5}
         {...register('time', { valueAsNumber: true })}

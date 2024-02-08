@@ -9,10 +9,22 @@ export const Container = styled.main`
   h1 {
     font-size: 1.5rem;
     color: ${({ theme }) => theme.colors['gray-100']};
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    > svg {
+      cursor: pointer;
+      transition: color 0.2s;
+      &:hover {
+        color: ${({ theme }) => theme.colors['green-500']};
+      }
+    }
   }
 `
 
 export const HistoryList = styled.div`
+  max-height: 45vh;
   flex: 1;
   overflow: auto;
   margin-top: 2rem;

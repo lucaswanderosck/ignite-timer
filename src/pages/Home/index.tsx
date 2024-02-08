@@ -13,7 +13,7 @@ export const Home: React.FC = () => {
     React.useContext(CyclesContext)
 
   const newCycleFormValidationSchema = zod.object({
-    task: zod.string().min(1, 'O nome do projeto é obrigatório'),
+    task: zod.string().min(5, 'O nome do projeto é obrigatório'),
     time: zod.number().int().min(1).max(60),
   })
 
@@ -50,6 +50,7 @@ export const Home: React.FC = () => {
             color="red"
             onClick={interruptCycle}
             type="button"
+            title="Interromper ciclo"
           >
             <HandPalm size={24} />
             Interromper
@@ -59,6 +60,7 @@ export const Home: React.FC = () => {
             color="green"
             type="submit"
             disabled={isDisabled}
+            title="Iniciar ciclo"
           >
             <Play size={24} />
             Começar
