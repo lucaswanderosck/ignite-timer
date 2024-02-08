@@ -6,7 +6,7 @@ import { Container, Separator } from './styles'
 export const CountDown: React.FC = () => {
   const {
     activeCycle,
-    currentCycleId,
+    activeCycleId,
     markCurrentCycleAsFinished,
     secondsPassed,
     setSecondsPassedForActiveCycle,
@@ -49,7 +49,7 @@ export const CountDown: React.FC = () => {
   }, [
     activeCycle,
     totalSeconds,
-    currentCycleId,
+    activeCycleId,
     markCurrentCycleAsFinished,
     setSecondsPassedForActiveCycle,
   ])
