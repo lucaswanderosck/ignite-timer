@@ -10,6 +10,16 @@ export const Container = styled.div`
   font-size: 1.125rem;
   font-weight: bold;
   flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    gap: 0;
+    flex-direction: column;
+    font-size: 1rem;
+
+    label {
+      margin-bottom: 0.2rem;
+    }
+  }
 `
 
 const BaseInput = styled.input`
@@ -18,7 +28,6 @@ const BaseInput = styled.input`
   border: 0;
   outline: 0;
   border-bottom: 2px solid ${({ theme }) => theme.colors['gray-500']};
-  //background-color: ${({ theme }) => theme.colors['gray-700']};
   background: transparent;
   color: ${({ theme }) => theme.colors['gray-100']};
   font-size: 1.125rem;
@@ -38,12 +47,24 @@ const BaseInput = styled.input`
     opacity: 0.7;
     cursor: not-allowed;
   }
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    // background-color: ${({ theme }) => theme.colors['gray-700']};
+  }
 `
 export const TaskInput = styled(BaseInput)`
   flex: 1;
 
   &::-webkit-calendar-picker-indicator {
     display: none !important;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem 0;
+    margin-bottom: 0.875rem;
   }
 `
 export const MinutsInput = styled(BaseInput)`
@@ -54,5 +75,9 @@ export const MinutsInput = styled(BaseInput)`
   &::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 0.2rem;
   }
 `

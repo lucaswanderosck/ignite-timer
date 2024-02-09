@@ -9,4 +9,10 @@ export const Container = styled.div`
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 768px) {
+    height: 100vh;
+    margin: 0;
+    border-radius: 0;
+  }
 `

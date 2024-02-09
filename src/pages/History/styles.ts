@@ -6,12 +6,20 @@ export const Container = styled.main`
   flex-direction: column;
   padding: 3.5rem;
 
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+
   h1 {
     font-size: 1.5rem;
     color: ${({ theme }) => theme.colors['gray-100']};
     display: flex;
     align-items: center;
     gap: 1rem;
+
+    @media (max-width: 768px) {
+      font-size: 1.25rem;
+    }
 
     > svg {
       cursor: pointer;
